@@ -1,0 +1,28 @@
+@model IReadOnlyList<Lilumi.Art.Application.Contracts.Products.ProductDto>
+@{
+    ViewData["Title"] = "3D Urunler";
+}
+
+<h2 class="mb-4">Lilumi.art 3D Urun Katalogu</h2>
+<p>Urunler Lilumi Instagram ve Shopier kaynaklarindan listelenmektedir.</p>
+
+<div class="row g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name" style="height:240px;object-fit:cover;" />
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.Description</p>
+                    <p class="fw-bold">@item.Price TL</p>
+                    <p class="small text-muted">Kaynak: @item.SourcePlatform</p>
+                </div>
+                <div class="card-footer d-flex gap-2">
+                    <a class="btn btn-outline-primary btn-sm" href="@item.SourceUrl" target="_blank">Platformda Gor</a>
+                    <a class="btn btn-primary btn-sm" asp-controller="Orders" asp-action="Create" asp-route-productId="@item.Id">Siparis Ver</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

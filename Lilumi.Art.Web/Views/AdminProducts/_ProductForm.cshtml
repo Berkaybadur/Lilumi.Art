@@ -1,0 +1,31 @@
+@model Lilumi.Art.Web.Models.Admin.ProductAdminViewModel
+
+<form method="post" class="col-md-8">
+    <input type="hidden" asp-for="Id" />
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Price" class="form-label"></label>
+        <input asp-for="Price" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="ImageUrl" class="form-label"></label>
+        <input asp-for="ImageUrl" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="SourcePlatform" class="form-label"></label>
+        <input asp-for="SourcePlatform" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="SourceUrl" class="form-label"></label>
+        <input asp-for="SourceUrl" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-dark">Kaydet</button>
+</form>

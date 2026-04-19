@@ -1,0 +1,37 @@
+@model Lilumi.Art.Web.Models.Orders.CreateOrderViewModel
+@{
+    ViewData["Title"] = "Siparis";
+    var products = ViewBag.Products as IReadOnlyList<Lilumi.Art.Application.Contracts.Products.ProductDto>;
+}
+
+<h2>Siparis Ver</h2>
+
+@if (User.Identity?.IsAuthenticated != true)
+{
+    <div class="alert alert-warning">Siparis verebilmek icin once giris yapin.</div>
+}
+
+<form method="post" class="col-md-8">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label class="form-label">Urun</label>
+        <select asp-for="ProductId" class="form-select">
+            @if (products is not null)
+            {
+                @foreach (var p in products)
+                {
+                    <option value="@p.Id">@p.Name (@p.Price TL)</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Quantity" class="form-label"></label>
+        <input asp-for="Quantity" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="ShippingAddress" class="form-label"></label>
+        <textarea asp-for="ShippingAddress" class="form-control" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Siparisi Tamamla</button>
+</form>

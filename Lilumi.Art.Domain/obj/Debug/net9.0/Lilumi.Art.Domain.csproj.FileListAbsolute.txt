@@ -1,0 +1,11 @@
+C:\Users\BERKAY\Desktop\PROJELER\cursortry\Lilumi.Art.Domain\bin\Debug\net9.0\Lilumi.Art.Domain.deps.json
+C:\Users\BERKAY\Desktop\PROJELER\cursortry\Lilumi.Art.Domain\bin\Debug\net9.0\Lilumi.Art.Domain.dll
+C:\Users\BERKAY\Desktop\PROJELER\cursortry\Lilumi.Art.Domain\bin\Debug\net9.0\Lilumi.Art.Domain.pdb
+C:\Users\BERKAY\Desktop\PROJELER\cursortry\Lilumi.Art.Domain\obj\Debug\net9.0\Lilumi.Art.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\BERKAY\Desktop\PROJELER\cursortry\Lilumi.Art.Domain\obj\Debug\net9.0\Lilumi.Art.Domain.AssemblyInfoInputs.cache
+C:\Users\BERKAY\Desktop\PROJELER\cursortry\Lilumi.Art.Domain\obj\Debug\net9.0\Lilumi.Art.Domain.AssemblyInfo.cs
+C:\Users\BERKAY\Desktop\PROJELER\cursortry\Lilumi.Art.Domain\obj\Debug\net9.0\Lilumi.Art.Domain.csproj.CoreCompileInputs.cache
+C:\Users\BERKAY\Desktop\PROJELER\cursortry\Lilumi.Art.Domain\obj\Debug\net9.0\Lilumi.Art.Domain.dll
+C:\Users\BERKAY\Desktop\PROJELER\cursortry\Lilumi.Art.Domain\obj\Debug\net9.0\refint\Lilumi.Art.Domain.dll
+C:\Users\BERKAY\Desktop\PROJELER\cursortry\Lilumi.Art.Domain\obj\Debug\net9.0\Lilumi.Art.Domain.pdb
+C:\Users\BERKAY\Desktop\PROJELER\cursortry\Lilumi.Art.Domain\obj\Debug\net9.0\ref\Lilumi.Art.Domain.dll

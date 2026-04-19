@@ -1,0 +1,31 @@
+@model Lilumi.Art.Web.Models.Auth.LoginViewModel
+@{
+    ViewData["Title"] = "Giris";
+}
+
+<h2>Giris Yap</h2>
+<form method="post" class="col-md-6">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label"></label>
+        <input asp-for="Password" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-dark">Giris Yap</button>
+</form>
+
+@if (TempData["Token"] is string token)
+{
+    <div class="alert alert-info mt-4">
+        <div><strong>JWT Token:</strong></div>
+        <textarea class="form-control" rows="4" readonly>@token</textarea>
+        @if (TempData["RefreshToken"] is string refreshToken)
+        {
+            <div class="mt-2"><strong>Refresh Token:</strong></div>
+            <textarea class="form-control" rows="3" readonly>@refreshToken</textarea>
+        }
+    </div>
+}
