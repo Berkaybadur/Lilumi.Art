@@ -5,7 +5,11 @@ using Lilumi.Art.Domain.Interfaces;
 
 namespace Lilumi.Art.Application.Services;
 
-public class ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork) : IProductService
+public class ProductService(
+    IProductRepository productRepository,
+    IProductInquiryRepository inquiryRepository,
+    IEmailService emailService,
+    IUnitOfWork unitOfWork) : IProductService
 {
     public async Task<IReadOnlyList<ProductDto>> GetCatalogAsync(CancellationToken cancellationToken = default)
     {
@@ -16,8 +20,10 @@ public class ProductService(IProductRepository productRepository, IUnitOfWork un
             p.Description,
             p.Price,
             p.ImageUrl,
+            p.LogoUrl,
             p.SourcePlatform,
-            p.SourceUrl)).ToList();
+            p.SourceUrl,
+            p.SourceProductUrl)).ToList();
     }
 
     public async Task<ProductDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
@@ -25,7 +31,7 @@ public class ProductService(IProductRepository productRepository, IUnitOfWork un
         var p = await productRepository.GetByIdAsync(id, cancellationToken);
         return p is null
             ? null
-            : new ProductDto(p.Id, p.Name, p.Description, p.Price, p.ImageUrl, p.SourcePlatform, p.SourceUrl);
+            : new ProductDto(p.Id, p.Name, p.Description, p.Price, p.ImageUrl, p.LogoUrl, p.SourcePlatform, p.SourceUrl, p.SourceProductUrl);
     }
 
     public async Task<Guid> CreateAsync(ProductDto product, CancellationToken cancellationToken = default)
@@ -36,8 +42,10 @@ public class ProductService(IProductRepository productRepository, IUnitOfWork un
             Description = product.Description,
             Price = product.Price,
             ImageUrl = product.ImageUrl,
+            LogoUrl = product.LogoUrl,
             SourcePlatform = product.SourcePlatform,
             SourceUrl = product.SourceUrl,
+            SourceProductUrl = product.SourceProductUrl,
             IsActive = true
         };
         await productRepository.AddAsync(entity, cancellationToken);
@@ -57,8 +65,10 @@ public class ProductService(IProductRepository productRepository, IUnitOfWork un
         entity.Description = product.Description;
         entity.Price = product.Price;
         entity.ImageUrl = product.ImageUrl;
+        entity.LogoUrl = product.LogoUrl;
         entity.SourcePlatform = product.SourcePlatform;
         entity.SourceUrl = product.SourceUrl;
+        entity.SourceProductUrl = product.SourceProductUrl;
         productRepository.Update(entity);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return true;
@@ -75,6 +85,41 @@ public class ProductService(IProductRepository productRepository, IUnitOfWork un
         entity.IsActive = false;
         productRepository.Update(entity);
         await unitOfWork.SaveChangesAsync(cancellationToken);
+        return true;
+    }
+
+    public async Task<bool> CreateInquiryAsync(ProductInquiryRequest request, CancellationToken cancellationToken = default)
+    {
+        var product = await productRepository.GetByIdAsync(request.ProductId, cancellationToken);
+        if (product is null)
+        {
+            return false;
+        }
+
+        var inquiry = new ProductInquiry
+        {
+            ProductId = product.Id,
+            ProductName = product.Name,
+            FullName = request.FullName,
+            Email = request.Email,
+            Phone = request.Phone,
+            Message = request.Message
+        };
+
+        await inquiryRepository.AddAsync(inquiry, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+
+        var mailBody = $"""
+        Yeni urun talep formu geldi.
+        Urun: {inquiry.ProductName}
+        Ad Soyad: {inquiry.FullName}
+        Email: {inquiry.Email}
+        Telefon: {inquiry.Phone}
+        Mesaj: {inquiry.Message}
+        Tarih (UTC): {inquiry.CreatedAtUtc:O}
+        """;
+
+        await emailService.SendAsync("admin@lilumi.art", $"Yeni urun talebi: {inquiry.ProductName}", mailBody, cancellationToken);
         return true;
     }
 }

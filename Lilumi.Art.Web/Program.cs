@@ -5,6 +5,7 @@ using Lilumi.Art.Infrastructure.Persistence;
 using Lilumi.Art.Infrastructure.Persistence.Seeder;
 using Lilumi.Art.Web.Middlewares;
 using Lilumi.Art.Domain.Interfaces;
+using Lilumi.Art.Application.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -53,10 +54,9 @@ app.UseGlobalExceptionHandling();
 using (var scope = app.Services.CreateScope())
 {
     var userRepository = scope.ServiceProvider.GetRequiredService<IAppUserRepository>();
-    var productRepository = scope.ServiceProvider.GetRequiredService<IProductRepository>();
-    var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
     var passwordHasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher<AppUser>>();
-    await DataSeeder.SeedAsync(userRepository, productRepository, passwordHasher, unitOfWork);
+    var shopierImportService = scope.ServiceProvider.GetRequiredService<IShopierImportService>();
+    await DataSeeder.SeedAsync(userRepository, passwordHasher, shopierImportService);
 }
 
 if (app.Environment.IsDevelopment())

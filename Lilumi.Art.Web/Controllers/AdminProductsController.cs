@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Lilumi.Art.Web.Controllers;
 
 [Authorize(Roles = "Admin")]
-public class AdminProductsController(IProductService productService) : Controller
+public class AdminProductsController(IProductService productService, IShopierImportService shopierImportService) : Controller
 {
     [HttpGet]
     public async Task<IActionResult> Index(CancellationToken cancellationToken)
@@ -48,8 +48,10 @@ public class AdminProductsController(IProductService productService) : Controlle
             Description = product.Description,
             Price = product.Price,
             ImageUrl = product.ImageUrl,
+            LogoUrl = product.LogoUrl,
             SourcePlatform = product.SourcePlatform,
-            SourceUrl = product.SourceUrl
+            SourceUrl = product.SourceUrl,
+            SourceProductUrl = product.SourceProductUrl
         });
     }
 
@@ -79,6 +81,14 @@ public class AdminProductsController(IProductService productService) : Controlle
         return RedirectToAction(nameof(Index));
     }
 
+    [HttpPost]
+    public async Task<IActionResult> SyncFromShopier(CancellationToken cancellationToken)
+    {
+        var imported = await shopierImportService.ImportAsync(cancellationToken);
+        TempData["Success"] = $"Shopier senkronizasyonu tamamlandi. Yeni kayit: {imported}";
+        return RedirectToAction(nameof(Index));
+    }
+
     private static ProductDto Map(ProductAdminViewModel model)
-        => new(model.Id, model.Name, model.Description, model.Price, model.ImageUrl, model.SourcePlatform, model.SourceUrl);
+        => new(model.Id, model.Name, model.Description, model.Price, model.ImageUrl, model.LogoUrl, model.SourcePlatform, model.SourceUrl, model.SourceProductUrl);
 }

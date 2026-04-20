@@ -6,6 +6,8 @@ public record ProductDto(
     string Description,
     decimal Price,
     string ImageUrl,
+    string LogoUrl,
     string SourcePlatform,
-    string SourceUrl
+    string SourceUrl,
+    string SourceProductUrl
 );

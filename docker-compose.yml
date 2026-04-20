@@ -13,6 +13,13 @@ services:
       - Jwt__Issuer=Lilumi.Art
       - Jwt__Audience=Lilumi.Art.Client
       - Jwt__Secret=SuperSecretKeyForLilumiArtJwtToken_2026_ChangeMe
+      - Smtp__Host=smtp.gmail.com
+      - Smtp__Port=587
+      - Smtp__Username=
+      - Smtp__Password=
+      - Smtp__FromEmail=no-reply@lilumi.art
+      - Smtp__ToEmail=admin@lilumi.art
+      - Smtp__EnableSsl=true
     depends_on:
       - mongo
 

@@ -9,4 +9,5 @@ public interface IProductService
     Task<Guid> CreateAsync(ProductDto product, CancellationToken cancellationToken = default);
     Task<bool> UpdateAsync(ProductDto product, CancellationToken cancellationToken = default);
     Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<bool> CreateInquiryAsync(ProductInquiryRequest request, CancellationToken cancellationToken = default);
 }

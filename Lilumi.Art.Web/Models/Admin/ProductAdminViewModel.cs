@@ -18,9 +18,13 @@ public class ProductAdminViewModel
     [Required]
     public string ImageUrl { get; set; } = string.Empty;
 
+    public string LogoUrl { get; set; } = string.Empty;
+
     [Required]
     public string SourcePlatform { get; set; } = string.Empty;
 
     [Required]
     public string SourceUrl { get; set; } = string.Empty;
+
+    public string SourceProductUrl { get; set; } = string.Empty;
 }

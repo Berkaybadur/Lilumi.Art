@@ -6,7 +6,7 @@ namespace Lilumi.Art.Infrastructure.Persistence.Repositories;
 
 public class ProductRepository(IMongoDatabase database) : IProductRepository
 {
-    private readonly IMongoCollection<Product> _collection = database.GetCollection<Product>("products");
+    private readonly IMongoCollection<Product> _collection = database.GetCollection<Product>("Urunler");
 
     public async Task<IReadOnlyList<Product>> GetAllAsync(CancellationToken cancellationToken = default)
         => await _collection.Find(_ => true).ToListAsync(cancellationToken);

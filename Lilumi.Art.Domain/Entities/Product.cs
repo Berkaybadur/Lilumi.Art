@@ -7,7 +7,9 @@ public class Product
     public string Description { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public string ImageUrl { get; set; } = string.Empty;
+    public string LogoUrl { get; set; } = string.Empty;
     public string SourcePlatform { get; set; } = string.Empty;
     public string SourceUrl { get; set; } = string.Empty;
+    public string SourceProductUrl { get; set; } = string.Empty;
     public bool IsActive { get; set; } = true;
 }
